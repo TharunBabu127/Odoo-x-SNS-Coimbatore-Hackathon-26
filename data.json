@@ -1,20 +1,26 @@
 {
   "India": {
     "capital": "New Delhi",
-    "currency": "INR",
+    "currency": "INR (₹)",
     "bestTime": "October to March",
-    "places": ["Taj Mahal", "Kerala", "Jaipur"]
+    "places": ["Taj Mahal", "Kerala", "Jaipur"],
+    "flag": "🇮🇳",
+    "description": "A land of vibrant culture, spicy food, and rich history."
   },
   "France": {
     "capital": "Paris",
-    "currency": "Euro",
+    "currency": "Euro (€)",
     "bestTime": "April to June",
-    "places": ["Eiffel Tower", "Louvre", "Nice"]
+    "places": ["Eiffel Tower", "Louvre", "Nice"],
+    "flag": "🇫🇷",
+    "description": "Famous for its fashion, art, and exquisite cuisine."
   },
   "Japan": {
     "capital": "Tokyo",
-    "currency": "Yen",
+    "currency": "Yen (¥)",
     "bestTime": "March to May",
-    "places": ["Mount Fuji", "Kyoto", "Tokyo Tower"]
+    "places": ["Mount Fuji", "Kyoto", "Tokyo Tower"],
+    "flag": "🇯🇵",
+    "description": "A unique blend of ancient tradition and futuristic technology."
   }
 }
