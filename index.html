@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GlobeTrotter</title>
+  <title>GlobeTrotter Premium</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -13,41 +13,79 @@
     <div class="container">
       <header>
         <h2>🌍 GlobeTrotter</h2>
-        <p>Plan your next adventure</p>
+        <p>Your Ultimate Travel Companion</p>
       </header>
 
       <div class="controls">
         <select id="country">
-          <option value="" disabled selected>Loading countries...</option>
+          <option value="" disabled selected>Loading destinations...</option>
         </select>
-        <button onclick="showCountry()" id="searchBtn" disabled>Explore</button>
+        <button onclick="showCountry()" id="searchBtn" disabled>Explore Destination</button>
       </div>
 
       <div id="result-card" class="result-card hidden">
-        <div class="card-header">
-          <span id="flag" class="flag-icon"></span>
-          <h3 id="country-name"></h3>
-        </div>
-        <p id="description" class="desc-text"></p>
         
-        <div class="details-grid">
-          <div class="detail-item">
-            <span class="label">Capital</span>
-            <span id="capital" class="value"></span>
-          </div>
-          <div class="detail-item">
-            <span class="label">Currency</span>
-            <span id="currency" class="value"></span>
-          </div>
-          <div class="detail-item">
-            <span class="label">Best Time</span>
-            <span id="best-time" class="value"></span>
-          </div>
+        <div class="card-image" id="card-image">
+           <span id="flag" class="flag-overlay"></span>
         </div>
 
-        <div class="places-section">
-          <span class="label">Must Visit:</span>
-          <p id="places" class="places-list"></p>
+        <div class="card-content">
+          <h3 id="country-name">Country Name</h3>
+          <p id="description" class="desc-text">Description goes here.</p>
+
+          <div class="tabs">
+            <button class="tab-link active" onclick="openTab('overview')">Overview</button>
+            <button class="tab-link" onclick="openTab('guide')">Guide</button>
+            <button class="tab-link" onclick="openTab('currency')">Currency</button>
+          </div>
+
+          <div id="overview" class="tab-content active-tab">
+            <div class="details-grid">
+              <div class="detail-item">
+                <span class="label">Capital</span>
+                <span id="capital" class="value"></span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Best Time</span>
+                <span id="best-time" class="value"></span>
+              </div>
+            </div>
+            <div class="places-section">
+              <span class="label">🌟 Famous Places:</span>
+              <p id="places" class="value"></p>
+            </div>
+          </div>
+
+          <div id="guide" class="tab-content">
+            <div class="guide-item">
+              <span class="label">🎭 Culture</span>
+              <p id="culture" class="guide-text"></p>
+            </div>
+            <div class="guide-item">
+              <span class="label">🍲 Food to Try</span>
+              <p id="food" class="guide-text"></p>
+            </div>
+            <div class="guide-item">
+              <span class="label">⚠️ Travel Rules</span>
+              <p id="rules" class="guide-text"></p>
+            </div>
+          </div>
+
+          <div id="currency" class="tab-content">
+            <div class="converter-box">
+              <p>Convert <b>USD ($)</b> to <b id="local-currency-name"></b></p>
+              <div class="input-group">
+                <input type="number" id="amount-input" placeholder="Amount in USD" oninput="convertCurrency()">
+                <span class="currency-label">USD</span>
+              </div>
+              <div class="result-box">
+                <span id="conversion-result">0.00</span>
+                <span id="target-currency-code"></span>
+              </div>
+              <p class="rate-info">Current Rate: 1 USD = <span id="exchange-rate">...</span></p>
+            </div>
+          </div>
+
         </div>
       </div>
       
