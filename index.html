@@ -2,9 +2,25 @@
 <html>
 <head>
   <title>GlobeTrotter</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>GlobeTrotter – Smart Travel Planner</h1>
-  <p>Hackathon Project</p>
+
+  <div class="container">
+    <h2>🌍 GlobeTrotter</h2>
+
+    <select id="country">
+      <option>India</option>
+      <option>France</option>
+      <option>Japan</option>
+    </select>
+
+    <br>
+    <button onclick="showCountry()">Show Country</button>
+
+    <p id="output"></p>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
