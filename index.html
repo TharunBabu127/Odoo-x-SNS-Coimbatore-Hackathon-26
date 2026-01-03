@@ -3,95 +3,95 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GlobeTrotter Pro | 3D World Explorer</title>
+  <title>GlobeTrotter Premium</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-  <script src="https://www.goat1000.com/tagcanvas.min.js" type="text/javascript"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <div class="app-container">
-    <aside class="sidebar">
+  <div class="main-wrapper">
+    <div class="container">
       <header>
-        <h1>🌍 GlobeTrotter<span>Pro</span></h1>
-        <div class="search-box">
-          <input type="text" id="countrySearch" placeholder="Search 195 countries..." onkeyup="filterCountries()">
-        </div>
+        <h2>🌍 GlobeTrotter</h2>
+        <p>Your Ultimate Travel Companion</p>
       </header>
-      
-      <div id="globe-viewport">
-        <canvas width="300" height="300" id="globeCanvas">
-          <ul id="countryList">
-            </ul>
-        </canvas>
+
+      <div class="controls">
+        <select id="country">
+          <option value="" disabled selected>Loading destinations...</option>
+        </select>
+        <button onclick="showCountry()" id="searchBtn" disabled>Explore Destination</button>
       </div>
 
-      <nav id="side-nav">
-        </nav>
-    </aside>
-
-    <main class="content-area">
-      <div id="welcome-screen" class="view">
-        <div class="hero">
-          <h2>Select a country to start your journey</h2>
-          <p>Explore culture, food, and live currency rates for every nation on Earth.</p>
+      <div id="result-card" class="result-card hidden">
+        
+        <div class="card-image" id="card-image">
+           <span id="flag" class="flag-overlay"></span>
         </div>
-      </div>
 
-      <div id="country-page" class="view hidden">
-        <div class="hero-banner" id="banner-img">
-          <div class="banner-overlay">
-            <h2 id="display-name">Country Name</h2>
-            <span id="display-flag"></span>
+        <div class="card-content">
+          <h3 id="country-name">Country Name</h3>
+          <p id="description" class="desc-text">Description goes here.</p>
+
+          <div class="tabs">
+            <button class="tab-link active" onclick="openTab('overview')">Overview</button>
+            <button class="tab-link" onclick="openTab('guide')">Guide</button>
+            <button class="tab-link" onclick="openTab('currency')">Currency</button>
           </div>
-        </div>
 
-        <div class="main-grid">
-          <section class="info-section">
-            <div class="tabs">
-              <button class="tab-btn active" onclick="switchTab('guide')">Travel Guide</button>
-              <button class="tab-btn" onclick="switchTab('finance')">Currency Pro</button>
-            </div>
-
-            <div id="guide-tab" class="tab-pane active">
-              <div class="guide-grid">
-                <div class="card"><h3>🏛️ Capital</h3><p id="info-capital"></p></div>
-                <div class="card"><h3>🍽️ Must Try Food</h3><p id="info-food"></p></div>
-                <div class="card"><h3>🎭 Culture</h3><p id="info-culture"></p></div>
-                <div class="card"><h3>⚠️ Local Rules</h3><p id="info-rules"></p></div>
+          <div id="overview" class="tab-content active-tab">
+            <div class="details-grid">
+              <div class="detail-item">
+                <span class="label">Capital</span>
+                <span id="capital" class="value"></span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Best Time</span>
+                <span id="best-time" class="value"></span>
               </div>
             </div>
+            <div class="places-section">
+              <span class="label">🌟 Famous Places:</span>
+              <p id="places" class="value"></p>
+            </div>
+          </div>
 
-            <div id="finance-tab" class="tab-pane">
-              <div class="converter-pro">
-                <h3>Advanced Currency Converter</h3>
-                <div class="converter-inputs">
-                  <div class="input-group">
-                    <label>From</label>
-                    <select id="fromCurrency"></select>
-                    <input type="number" id="fromAmount" value="1" oninput="performConversion()">
-                  </div>
-                  <div class="swap-icon">⇄</div>
-                  <div class="input-group">
-                    <label>To (Local)</label>
-                    <select id="toCurrency"></select>
-                    <input type="number" id="toAmount" readonly>
-                  </div>
-                </div>
-                <p class="rate-text">Live Rate: <span id="live-rate">Fetching...</span></p>
+          <div id="guide" class="tab-content">
+            <div class="guide-item">
+              <span class="label">🎭 Culture</span>
+              <p id="culture" class="guide-text"></p>
+            </div>
+            <div class="guide-item">
+              <span class="label">🍲 Food to Try</span>
+              <p id="food" class="guide-text"></p>
+            </div>
+            <div class="guide-item">
+              <span class="label">⚠️ Travel Rules</span>
+              <p id="rules" class="guide-text"></p>
+            </div>
+          </div>
+
+          <div id="currency" class="tab-content">
+            <div class="converter-box">
+              <p>Convert <b>USD ($)</b> to <b id="local-currency-name"></b></p>
+              <div class="input-group">
+                <input type="number" id="amount-input" placeholder="Amount in USD" oninput="convertCurrency()">
+                <span class="currency-label">USD</span>
               </div>
+              <div class="result-box">
+                <span id="conversion-result">0.00</span>
+                <span id="target-currency-code"></span>
+              </div>
+              <p class="rate-info">Current Rate: 1 USD = <span id="exchange-rate">...</span></p>
             </div>
-          </section>
+          </div>
 
-          <aside class="stats-sidebar">
-            <div class="stat-card">
-              <h4>Top Landmarks</h4>
-              <ul id="info-places"></ul>
-            </div>
-          </aside>
         </div>
       </div>
-    </main>
+      
+      <p id="error-msg" class="error"></p>
+
+    </div>
   </div>
 
   <script src="script.js"></script>
