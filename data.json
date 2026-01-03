@@ -1,0 +1,20 @@
+{
+  "India": {
+    "capital": "New Delhi",
+    "currency": "INR",
+    "bestTime": "October to March",
+    "places": ["Taj Mahal", "Kerala", "Jaipur"]
+  },
+  "France": {
+    "capital": "Paris",
+    "currency": "Euro",
+    "bestTime": "April to June",
+    "places": ["Eiffel Tower", "Louvre", "Nice"]
+  },
+  "Japan": {
+    "capital": "Tokyo",
+    "currency": "Yen",
+    "bestTime": "March to May",
+    "places": ["Mount Fuji", "Kyoto", "Tokyo Tower"]
+  }
+}
