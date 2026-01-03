@@ -1,31 +1,39 @@
 # GlobeTrotter – Smart Travel Planner 🌍
 
-## Problem Statement
-The hackathon theme was "Globe Trotter".
-Travel enthusiasts often struggle to find essential country-specific travel information in one simple platform.
+## 📖 Overview
+GlobeTrotter is a smart, web-based travel planner designed to provide travel enthusiasts with essential information about destinations worldwide. In a single click, users can access details like currency, best visiting times, and top tourist attractions.
 
-## Solution
-GlobeTrotter is a web-based smart travel planner that allows users to explore countries and view important travel details such as capital, currency, best time to visit, and famous places.
+## 🚀 Features
+- **Dynamic Data:** Information is fetched from an external JSON file, making it easy to update.
+- **Interactive UI:** Clean, responsive design with a modern card layout.
+- **Essential Info:** Provides Capital, Currency, Best Time to Visit, and Famous Places.
+- **Scalable:** New countries can be added to the JSON file without changing the HTML code.
 
-## Features
-- Select a country from the dropdown
-- View capital city
-- View currency used
-- Best time to visit
-- Famous tourist places
-- Simple and user-friendly interface
+## 🛠️ Tech Stack
+- **HTML5:** Semantic structure.
+- **CSS3:** Flexbox, Responsive Design, CSS Transitions.
+- **JavaScript (ES6+):** Async/Await, DOM Manipulation, Fetch API.
+- **JSON:** Data storage.
 
-## Tech Stack
-- HTML
-- CSS
-- JavaScript
-- JSON
+## ⚙️ How to Run Locally
+*Note: Because this project uses the `fetch` API to load a JSON file, browser security policies (CORS) may block it if you simply open `index.html` directly from your file folder.*
 
-## Future Scope
-- Interactive world map
-- User login and travel history
-- AI-based travel recommendations
-- Hotel and flight integration
+1. **Clone or Download** the repository.
+2. **Use a Local Server** (Recommended):
+   - If you have Python installed:
+     ```bash
+     python -m http.server
+     ```
+   - If you use VS Code:
+     - Install the **"Live Server"** extension.
+     - Right-click `index.html` and select **"Open with Live Server"**.
+3. The app should now load the data correctly.
 
-## Demo Video
-The demo video of the working project is uploaded in this repository.
+## 📂 Project Structure
+```text
+/GlobeTrotter
+│── index.html    # Main user interface
+│── style.css     # Styling and layout
+│── script.js     # Logic and data fetching
+│── data.json     # Database of countries
+└── README.md     # Documentation
