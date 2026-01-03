@@ -2,25 +2,79 @@
   "India": {
     "capital": "New Delhi",
     "currency": "INR (₹)",
+    "currencyCode": "INR",
     "bestTime": "October to March",
-    "places": ["Taj Mahal", "Kerala", "Jaipur"],
+    "places": ["Taj Mahal", "Varanasi", "Kerala Backwaters", "Jaipur"],
     "flag": "🇮🇳",
-    "description": "A land of vibrant culture, spicy food, and rich history."
+    "description": "A land of spirituality, vibrant festivals, and diverse landscapes.",
+    "culture": "Respect elders by touching their feet. Remove shoes before entering homes or temples.",
+    "food": "Butter Chicken, Masala Dosa, Biryani, Pani Puri.",
+    "rules": "Avoid public displays of affection. Dress modestly at religious sites.",
+    "image": "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=600&q=80"
   },
   "France": {
     "capital": "Paris",
     "currency": "Euro (€)",
+    "currencyCode": "EUR",
     "bestTime": "April to June",
-    "places": ["Eiffel Tower", "Louvre", "Nice"],
+    "places": ["Eiffel Tower", "Louvre Museum", "French Riviera", "Mont Saint-Michel"],
     "flag": "🇫🇷",
-    "description": "Famous for its fashion, art, and exquisite cuisine."
+    "description": "The heart of art, fashion, and world-class cuisine.",
+    "culture": "Greet with a 'Bonjour' before asking questions. Handshakes are common.",
+    "food": "Croissants, Coq au Vin, Macarons, Baguettes.",
+    "rules": "It is polite to say 'Au revoir' when leaving a shop. Tipping is not mandatory but appreciated.",
+    "image": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=80"
   },
   "Japan": {
     "capital": "Tokyo",
     "currency": "Yen (¥)",
-    "bestTime": "March to May",
-    "places": ["Mount Fuji", "Kyoto", "Tokyo Tower"],
+    "currencyCode": "JPY",
+    "bestTime": "March to May (Cherry Blossom)",
+    "places": ["Mount Fuji", "Kyoto Temples", "Akihabara", "Hiroshima"],
     "flag": "🇯🇵",
-    "description": "A unique blend of ancient tradition and futuristic technology."
+    "description": "Where ancient traditions blend seamlessly with futuristic technology.",
+    "culture": "Bowing is the traditional greeting. Silence is golden on public transport.",
+    "food": "Sushi, Ramen, Tempura, Takoyaki.",
+    "rules": "Do not tip (it's considered rude). Take off shoes indoors. Do not eat while walking.",
+    "image": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=80"
+  },
+  "Brazil": {
+    "capital": "Brasília",
+    "currency": "Real (R$)",
+    "currencyCode": "BRL",
+    "bestTime": "December to March",
+    "places": ["Christ the Redeemer", "Copacabana", "Amazon Rainforest"],
+    "flag": "🇧🇷",
+    "description": "Home to the Amazon, Samba, and the world's biggest carnival.",
+    "culture": "People are warm and physical; hugs and cheek kisses are common greetings.",
+    "food": "Feijoada, Pão de Queijo, Brigadeiro, Açaí.",
+    "rules": "Topless sunbathing is illegal. Carry ID at all times.",
+    "image": "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=600&q=80"
+  },
+  "Australia": {
+    "capital": "Canberra",
+    "currency": "Australian Dollar (A$)",
+    "currencyCode": "AUD",
+    "bestTime": "September to November",
+    "places": ["Sydney Opera House", "Great Barrier Reef", "Uluru"],
+    "flag": "🇦🇺",
+    "description": "A continent of outback adventures and stunning coastlines.",
+    "culture": "'Mateship' is central. BBQs are a serious social tradition.",
+    "food": "Vegemite Toast, Meat Pies, Lamingtons, Pavlova.",
+    "rules": "Swim between the flags at the beach. Tipping is not expected.",
+    "image": "https://images.unsplash.com/photo-1523482580672-01e6f2eb60b3?auto=format&fit=crop&w=600&q=80"
+  },
+  "Egypt": {
+    "capital": "Cairo",
+    "currency": "Egyptian Pound (E£)",
+    "currencyCode": "EGP",
+    "bestTime": "October to April",
+    "places": ["Pyramids of Giza", "Luxor Temple", "Red Sea"],
+    "flag": "🇪🇬",
+    "description": "The cradle of civilization with monuments that defy time.",
+    "culture": "Family is the center of social life. Hospitality is paramount.",
+    "food": "Koshary, Falafel, Shawarma, Kunafa.",
+    "rules": "Dress conservatively. Public affection is frowned upon. Ask before taking photos of locals.",
+    "image": "https://images.unsplash.com/photo-1539650116455-251d9a695279?auto=format&fit=crop&w=600&q=80"
   }
 }
