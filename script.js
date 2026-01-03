@@ -1,123 +1,107 @@
-let allCountries = [];
+let travelData = {};
 let exchangeRates = {};
 
-async function initApp() {
-    try {
-        // 1. Fetch data for all 195 countries
-        const res = await fetch('https://restcountries.com/v3.1/all');
-        allCountries = await res.json();
-        
-        // Sort alphabetically
-        allCountries.sort((a, b) => a.name.common.localeCompare(b.name.common));
+// 1. Fetch Data & Currency Rates on Load
+document.addEventListener("DOMContentLoaded", async () => {
+  const selectElement = document.getElementById("country");
+  const buttonElement = document.getElementById("searchBtn");
 
-        // 2. Fetch Exchange Rates
-        const rateRes = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
-        const rateData = await rateRes.json();
-        exchangeRates = rateData.rates;
+  try {
+    // Parallel Fetch: Load Country Data AND Currency Rates at the same time
+    const [dataResponse, currencyResponse] = await Promise.all([
+      fetch("data.json"),
+      fetch("https://api.exchangerate-api.com/v4/latest/USD") // Free, no-key API
+    ]);
 
-        populateCountryList();
-        initGlobe();
-        populateCurrencyDropdowns();
-    } catch (e) {
-        console.error("Initialization failed", e);
-    }
-}
+    travelData = await dataResponse.json();
+    const rateData = await currencyResponse.json();
+    exchangeRates = rateData.rates;
 
-function populateCountryList() {
-    const list = document.getElementById('side-nav');
-    const globeList = document.getElementById('countryList');
-    
-    allCountries.forEach(country => {
-        // Sidebar List
-        const btn = document.createElement('button');
-        btn.className = 'nav-item';
-        btn.innerHTML = `<span>${country.flag}</span> ${country.name.common}`;
-        btn.onclick = () => loadCountryPage(country.name.common);
-        list.appendChild(btn);
-
-        // Globe Tags
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="#" onclick="loadCountryPage('${country.name.common}')">${country.name.common}</a>`;
-        globeList.appendChild(li);
-    });
-}
-
-function initGlobe() {
-    try {
-        TagCanvas.Start('globeCanvas', 'countryList', {
-            textColour: '#1e3c72',
-            outlineColour: 'transparent',
-            reverse: true,
-            depth: 0.8,
-            maxSpeed: 0.05,
-            textFont: 'Outfit, sans-serif',
-            weight: true
-        });
-    } catch(e) {
-        document.getElementById('globe-viewport').style.display = 'none';
-    }
-}
-
-function loadCountryPage(name) {
-    const country = allCountries.find(c => c.name.common === name);
-    if(!country) return;
-
-    // Switch Views
-    document.getElementById('welcome-screen').classList.add('hidden');
-    document.getElementById('country-page').classList.remove('hidden');
-
-    // Basic Info
-    document.getElementById('display-name').textContent = country.name.common;
-    document.getElementById('display-flag').textContent = country.flag;
-    document.getElementById('info-capital').textContent = country.capital ? country.capital[0] : 'N/A';
-    
-    // Banner Image (Using Unsplash API for high quality)
-    document.getElementById('banner-img').style.backgroundImage = `url('https://source.unsplash.com/1600x900/?${name},landmark')`;
-
-    // Mock Travel Guide Data (Since real-time APIs for food/culture are restricted, we generate them based on region)
-    document.getElementById('info-food').textContent = getFoodByRegion(country.region);
-    document.getElementById('info-culture').textContent = `Influenced by ${country.subregion} traditions. Strong emphasis on local community.`;
-    document.getElementById('info-rules').textContent = `Check local visa requirements for ${country.continents[0]}. Standard international travel laws apply.`;
-
-    // Currency Setup
-    const currencyCode = Object.keys(country.currencies)[0];
-    document.getElementById('toCurrency').value = currencyCode;
-    performConversion();
-}
-
-// Utility: Dynamic Currency logic
-function populateCurrencyDropdowns() {
-    const from = document.getElementById('fromCurrency');
-    const to = document.getElementById('toCurrency');
-    
-    Object.keys(exchangeRates).forEach(code => {
-        const opt = `<option value="${code}">${code}</option>`;
-        from.innerHTML += opt;
-        to.innerHTML += opt;
+    // Populate Dropdown
+    selectElement.innerHTML = '<option value="" disabled selected>Select a destination</option>';
+    Object.keys(travelData).forEach(country => {
+      const option = document.createElement("option");
+      option.value = country;
+      option.textContent = country;
+      selectElement.appendChild(option);
     });
 
-    from.value = "USD";
+    buttonElement.disabled = false;
+
+  } catch (error) {
+    console.error("Error loading data:", error);
+    document.getElementById("error-msg").textContent = "⚠️ Error loading data. Please check your internet connection.";
+  }
+});
+
+let currentCurrencyCode = ""; // Store current country's currency code
+
+function showCountry() {
+  const selectedCountry = document.getElementById("country").value;
+  if (!selectedCountry) return;
+
+  const info = travelData[selectedCountry];
+  const card = document.getElementById("result-card");
+  
+  // 1. Update Header & Image
+  document.getElementById("country-name").textContent = selectedCountry;
+  document.getElementById("flag").textContent = info.flag;
+  document.getElementById("description").textContent = info.description;
+  document.getElementById("card-image").style.backgroundImage = `url('${info.image}')`;
+
+  // 2. Update Overview Tab
+  document.getElementById("capital").textContent = info.capital;
+  document.getElementById("best-time").textContent = info.bestTime;
+  document.getElementById("places").textContent = info.places.join(", ");
+
+  // 3. Update Guide Tab
+  document.getElementById("culture").textContent = info.culture;
+  document.getElementById("food").textContent = info.food;
+  document.getElementById("rules").textContent = info.rules;
+
+  // 4. Update Currency Tab
+  currentCurrencyCode = info.currencyCode;
+  document.getElementById("local-currency-name").textContent = info.currency;
+  document.getElementById("target-currency-code").textContent = info.currencyCode;
+  
+  // Update Rate Display
+  const rate = exchangeRates[currentCurrencyCode];
+  document.getElementById("exchange-rate").textContent = rate ? `${rate} ${info.currencyCode}` : "Unavailable";
+  document.getElementById("amount-input").value = ""; // Clear previous input
+  document.getElementById("conversion-result").textContent = "0.00";
+
+  // Show Card & Reset Tab to Overview
+  card.classList.remove("hidden");
+  openTab('overview');
 }
 
-function performConversion() {
-    const from = document.getElementById('fromCurrency').value;
-    const to = document.getElementById('toCurrency').value;
-    const amount = document.getElementById('fromAmount').value;
+// Tab Switching Logic
+function openTab(tabName) {
+  // Hide all tab contents
+  const contents = document.querySelectorAll(".tab-content");
+  contents.forEach(content => content.classList.remove("active-tab"));
 
-    const rate = exchangeRates[to] / exchangeRates[from];
-    document.getElementById('toAmount').value = (amount * rate).toFixed(2);
-    document.getElementById('live-rate').textContent = `1 ${from} = ${rate.toFixed(4)} ${to}`;
+  // Deactivate all tab buttons
+  const buttons = document.querySelectorAll(".tab-link");
+  buttons.forEach(btn => btn.classList.remove("active"));
+
+  // Activate specific tab
+  document.getElementById(tabName).classList.add("active-tab");
+  
+  // Find the button that was clicked (approximate logic for simplicity)
+  const clickedBtn = Array.from(buttons).find(btn => btn.getAttribute('onclick').includes(tabName));
+  if(clickedBtn) clickedBtn.classList.add("active");
 }
 
-function getFoodByRegion(region) {
-    const foods = {
-        "Asia": "Rice dishes, Spiced Curries, Noodle Soups",
-        "Europe": "Artisan Breads, Cheeses, Pastas",
-        "Americas": "Corn-based tortillas, Grilled meats, Tropical fruits",
-        "Africa": "Couscous, Tagines, Stewed grains",
-        "Oceania": "Seafood, Root vegetables, Grilled Fish"
-    };
-    return foods[region] || "Local traditional cuisine";
-}
+// Currency Conversion Logic
+function convertCurrency() {
+  const amount = parseFloat(document.getElementById("amount-input").value);
+  const rate = exchangeRates[currentCurrencyCode];
 
-initApp();
+  if (!isNaN(amount) && rate) {
+    const result = (amount * rate).toFixed(2);
+    document.getElementById("conversion-result").textContent = result;
+  } else {
+    document.getElementById("conversion-result").textContent = "0.00";
+  }
+}
